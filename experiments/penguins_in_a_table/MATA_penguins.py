@@ -66,7 +66,7 @@ prompt_refine_text2sql = load_prompt("prompt/text2sql_self-refine.yaml", encodin
 prompt_FM = load_prompt("prompt/core_extract_prompt.yaml", encoding="utf-8")
 
 
-confidence_checker_path = "7anonymous7/confidence_checker"
+confidence_checker_path = "snu-aidas/MATA_confidence_checker"
 confidence_checker_tokenizer = AutoTokenizer.from_pretrained(confidence_checker_path)
 confidence_checker = AutoModelForSequenceClassification.from_pretrained(confidence_checker_path)
 confidence_checker.eval()
