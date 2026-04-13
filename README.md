@@ -28,7 +28,7 @@ git clone https://github.com/AIDASLab/MATA.git
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 **3. Place [the scheduler checkpoint](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link
-) inside the [`scheduler` folder](https://github.com/21anonymous12/MATA/tree/main/scheduler).**
+) inside the [`scheduler` folder](https://github.com/AIDASLab/MATA/tree/main/scheduler).**
 
 **4. Run the following code.**
 ```bash
