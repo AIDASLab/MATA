@@ -27,7 +27,8 @@ git clone https://github.com/AIDASLab/MATA.git
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
-**3. Place [the scheduler checkpoint](https://drive.google.com/file/d/1034behq_VONXuJOlvCKuFRXNYkmNERTI/view?usp=sharing) inside the [`scheduler` folder](https://github.com/21anonymous12/MATA/tree/main/scheduler).**
+**3. Place [the scheduler checkpoint](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link
+) inside the [`scheduler` folder](https://github.com/21anonymous12/MATA/tree/main/scheduler).**
 
 **4. Run the following code.**
 ```bash
@@ -54,7 +55,8 @@ ollama pull phi4:14b
 conda env create -f ./langchain.yml
 ```
 
-**8. Download the scheduler checkpoint from the following [link](https://drive.google.com/file/d/1034behq_VONXuJOlvCKuFRXNYkmNERTI/view?usp=sharing) and place it inside the `scheduler` folder.**
+**8. Download the scheduler checkpoint from the following [link](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link
+) and place it inside the `scheduler` folder.**
 
 **9. Run the following code.**
 ```bash
