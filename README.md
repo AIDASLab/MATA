@@ -11,7 +11,7 @@ Here, you can find the experimental code, and fine-tuned model checkpoints for M
 
 ---
 ## MATA scheduler Checkpoint
-You can download the MATA scheduler checkpoint from the following [link](https://drive.google.com/file/d/1034behq_VONXuJOlvCKuFRXNYkmNERTI/view?usp=sharing).
+You can download the MATA scheduler checkpoint from the following [link](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link).
 
 ## MATA confidence checker Checkpoint
 You can download the MATA confidence checker checkpoint from the following [link](https://huggingface.co/7anonymous7/confidence_checker).
