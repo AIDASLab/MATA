@@ -11,23 +11,23 @@ By following the procedure below, you can reproduce the experimental results on 
 
 
 ## MATA scheduler Checkpoint
-You can download the MATA scheduler checkpoint from the following [link](https://drive.google.com/file/d/1034behq_VONXuJOlvCKuFRXNYkmNERTI/view?usp=sharing).
+You can download the MATA scheduler checkpoint from the following [link](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link).
 
 ## MATA confidence checker Checkpoint
-You can download the MATA confidence checker checkpoint from the following [link](https://huggingface.co/7anonymous7/confidence_checker).
+You can download the MATA confidence checker checkpoint from the following [link](https://huggingface.co/snu-aidas/MATA_confidence_checker).
 
 ---
 ## How to Use
 
 **1. Clone this repository using the web URL.**
 ```bash
-git clone https://github.com/21anonymous12/MATA.git
+git clone https://github.com/AIDASLab/MATA.git
 ```
 **2. To use MATA, you need to install [Ollama](https://ollama.com/). Please run the following code in your local environment. Our code is designed to be used on Linux systems.**
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
-**3. Place [the scheduler checkpoint](https://drive.google.com/file/d/1034behq_VONXuJOlvCKuFRXNYkmNERTI/view?usp=sharing) inside the [`scheduler` folder](https://github.com/21anonymous12/MATA/tree/main/scheduler).**
+**3. Place [the scheduler checkpoint](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link) inside the [`scheduler` folder](https://github.com/AIDASLab/MATA/tree/main/scheduler).**
 
 **4. Run the following code.**
 ```bash
@@ -38,7 +38,7 @@ ollama serve
 ollama pull qwen2.5:32b-instruct
 ```
 
-**6. Move the `MATA_tablebench.py` file and the `Tablebench_loader.py` file to the [main](https://github.com/21anonymous12/MATA/tree/main) folder.**
+**6. Move the `MATA_tablebench.py` file and the `Tablebench_loader.py` file to the [main](https://github.com/AIDASLab/MATA/tree/main) folder.**
 
 **7. If you want to change the model, you need to modify the code in the following four locations:**
 
@@ -56,7 +56,7 @@ ollama pull qwen2.5:32b-instruct
 conda env create -f ./langchain.yml
 ```
 
-**9. Download the scheduler checkpoint from the following [link](https://drive.google.com/file/d/1034behq_VONXuJOlvCKuFRXNYkmNERTI/view?usp=sharing) and place it inside the `scheduler` folder.**
+**9. Download the scheduler checkpoint from the following [link](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link) and place it inside the `scheduler` folder.**
 
 
 **10. Run the following code.**
