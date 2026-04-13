@@ -138,7 +138,7 @@ results_all = {
 with open('LLM_inference_results.json', 'w', encoding='utf-8') as json_file:
     json.dump(results_all, json_file, ensure_ascii=False, indent=4)
 
-confidence_checker_path = "7anonymous7/confidence_checker"
+confidence_checker_path = "snu-aidas/MATA_confidence_checker"
 confidence_checker_tokenizer = AutoTokenizer.from_pretrained(confidence_checker_path)
 confidence_checker = AutoModelForSequenceClassification.from_pretrained(confidence_checker_path)
 confidence_checker.eval()
