@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta: paper description and keywords -->
+  <meta name="description"
+        content="Official project page for MATA, a multi-agent framework for reliable and flexible table question answering.">
+  <meta name="keywords" content="MATA, Table Question Answering, TableQA, Multi-Agent, Chain-of-Thought, Program-of-Thought, text-to-SQL">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Paper title -->
+  <title>MATA: Multi-Agent Framework for Reliable and Flexible Table Question Answering</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.ico">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    .result-panel {
+      height: 100%;
+    }
+
+    .result-panel figure img {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+
+    .benchmark-card {
+      background: linear-gradient(135deg, #fbfcff 0%, #f4f8fb 100%);
+      border: 1px solid #e5ebf2;
+      border-radius: 16px;
+      padding: 1rem;
+      margin-top: 0.85rem;
+      text-align: left;
+    }
+
+    .benchmark-card:first-of-type {
+      margin-top: 0;
+    }
+
+    .benchmark-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .benchmark-card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #20242a;
+    }
+
+    .benchmark-card-note {
+      color: #667085;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .score-tile {
+      background: #ffffff;
+      border: 1px solid #e8edf3;
+      border-radius: 12px;
+      padding: 0.65rem 0.5rem;
+      text-align: center;
+    }
+
+    .score-label {
+      color: #667085;
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .score-value {
+      color: #111827;
+      display: block;
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0.2rem 0;
+    }
+
+    .score-gain {
+      color: #127a45;
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .baseline-note {
+      color: #667085;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      margin-top: 0.75rem;
+    }
+
+    .compact-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid #e7e7e7;
+      border-radius: 12px;
+      margin: 1rem 0 2rem;
+    }
+
+    table.compact-results {
+      min-width: 1040px;
+      margin-bottom: 0;
+      font-size: 0.72rem;
+    }
+
+    table.compact-results th,
+    table.compact-results td {
+      padding: 0.35rem 0.45rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    table.compact-results thead th {
+      background: #f7f7f7;
+    }
+
+    .table-caption {
+      margin: 0.25rem 0 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .metric-best {
+      font-weight: 700;
+    }
+
+    .metric-second {
+      text-decoration: underline;
+      text-underline-offset: 0.12em;
+    }
+
+    @media screen and (max-width: 768px) {
+      .result-panel {
+        margin-bottom: 1rem;
+      }
+
+      table.compact-results {
+        font-size: 0.68rem;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benchmark-card-header {
+        display: block;
+      }
+
+      .benchmark-card-note {
+        display: block;
+        margin-top: 0.2rem;
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://aidas.snu.ac.kr">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+        <div style="padding-left:5px;">AIDAS Lab</div>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- Paper Title -->
+          <h1 class="title is-1 publication-title">MATA: Multi-Agent Framework for Reliable and Flexible Table Question Answering</h1>
+
+          <!-- Conference Name and Year -->
+          <h1 class="title is-4 publication-title" style="color: #FF0066;">
+            ACL 2026 Findings
+          </h1>
+
+          <!-- Authors and Affiliations -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://arxiv.org/search/cs?searchtype=author&query=Hyeon,+S">Sieun Hyeon</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://arxiv.org/search/cs?searchtype=author&query=Oh,+J">Jusang Oh</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://arxiv.org/search/cs?searchtype=author&query=Cho,+S+S">Sunghwan Steve Cho</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://arxiv.org/search/cs?searchtype=author&query=Do,+J">Jaeyoung Do</a><sup>1,2,*</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Department of Electrical and Computer Engineering, Seoul National University</span><br>
+            <span class="author-block"><sup>2</sup>Interdisciplinary Program in Artificial Intelligence, Seoul National University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Paper Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2602.09642"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Arxiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2602.09642"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/AIDASLab/MATA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/AIDASLab/MATA/tree/main/experiments"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- main image -->
+      <figure class="image">
+        <img src="./static/images/mata_figure1_overview.png"
+             alt="Overview of the MATA multi-agent TableQA workflow"
+             style="width: 100%; border-radius: 14px; box-shadow: 0 18px 45px rgba(10, 10, 10, 0.12);">
+      </figure>
+      <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
+        MATA coordinates Chain-of-Thought, Program-of-Thought, and text-to-SQL reasoning paths with lightweight tools for reliable and efficient TableQA.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper abstract -->
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="column has-text-justified" style="padding: 0;">
+            <p>
+              MATA is a multi-agent framework for Table Question Answering that targets reliability, flexibility, and efficiency in practical LLM deployment settings. Instead of depending on one reasoning style, MATA forms candidate answers through complementary Chain-of-Thought, Program-of-Thought, and text-to-SQL paths, then uses lightweight tools and specialized agents to select or refine the final answer.
+            </p>
+            <p>
+              The framework is designed to avoid unnecessary LLM calls while preserving answer diversity. Experiments on Penguins in a Table and TableBench with ten LLM backbones show that MATA achieves strong accuracy across open-source and proprietary models, with especially large gains on the more challenging TableBench benchmark.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Highlights -->
+<section class="section" id="highlights">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Key Ideas</h2>
+        <div class="columns is-multiline">
+          <div class="column is-one-third">
+            <div class="box" style="height: 100%;">
+              <h3 class="title is-5">Model-Agnostic TableQA</h3>
+              <p>MATA is evaluated with ten LLMs, covering small open-source models below 10B parameters and larger or closed-source models.</p>
+            </div>
+          </div>
+          <div class="column is-one-third">
+            <div class="box" style="height: 100%;">
+              <h3 class="title is-5">Diverse Reasoning</h3>
+              <p>The framework combines CoT, PoT, and text-to-SQL so that table questions can benefit from textual, code-based, and SQL-based reasoning.</p>
+            </div>
+          </div>
+          <div class="column is-one-third">
+            <div class="box" style="height: 100%;">
+              <h3 class="title is-5">Efficient Orchestration</h3>
+              <p>Scheduler and Confidence Checker modules reduce unnecessary LLM-agent calls while preserving strong answer selection.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            Given a table and a question, MATA first runs the CoT Agent and uses the Scheduler to prioritize either the PoT Agent or the text2SQL Agent. If the selected code-based path agrees with the CoT answer, MATA can skip the remaining code-based path; otherwise, it invokes the other path to increase answer diversity.
+          </p>
+          <p>
+            The system includes three lightweight tools and six LLM-based agents. The tools are the Scheduler, Confidence Checker, and Format Matcher. The agents are the CoT Agent, PoT Agent, text2SQL Agent, Python Debug Agent, SQL Debug Agent, and Judge Agent. The Scheduler uses MobileBERT with a two-layer MLP and has 24.65M parameters; the Confidence Checker is based on DeBERTaV3-large with about 435M parameters; the Format Matcher uses Qwen2.5-Instruct 0.5B without fine-tuning.
+          </p>
+          <ul>
+            <li><strong>Agent selection:</strong> prioritize PoT or text2SQL while CoT runs in parallel.</li>
+            <li><strong>Code generation and debugging:</strong> refine PoT and text2SQL outputs with dedicated debugging agents.</li>
+            <li><strong>Answer selection:</strong> use the Confidence Checker for early selection and the Judge Agent when candidates require additional verification.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            MATA is evaluated on two benchmarks with Exact Match, fuzzy matching, and token-level F1. Penguins in a Table represents easier single-table reasoning, while TableBench contains larger and more complex questions across 18 subcategories.
+          </p>
+          <div class="columns is-variable is-4">
+            <div class="column is-6">
+              <div class="box result-panel">
+                <h3 class="title is-5">Benchmark Summary</h3>
+                <div class="benchmark-card">
+                  <div class="benchmark-card-header">
+                    <span class="benchmark-card-title">Penguins in a Table</span>
+                    <span class="benchmark-card-note">Average over 10 LLMs</span>
+                  </div>
+                  <div class="score-grid">
+                    <div class="score-tile">
+                      <span class="score-label">EM</span>
+                      <span class="score-value">0.881</span>
+                      <span class="score-gain">+8.8% vs. 0.810</span>
+                    </div>
+                    <div class="score-tile">
+                      <span class="score-label">Fuzzy</span>
+                      <span class="score-value">0.890</span>
+                      <span class="score-gain">+6.1% vs. 0.839</span>
+                    </div>
+                    <div class="score-tile">
+                      <span class="score-label">F1</span>
+                      <span class="score-value">0.881</span>
+                      <span class="score-gain">+8.6% vs. 0.811</span>
+                    </div>
+                  </div>
+                  <p class="baseline-note">
+                    Best baseline average: SynTQA for EM, fuzzy matching, and F1.
+                  </p>
+                </div>
+                <div class="benchmark-card">
+                  <div class="benchmark-card-header">
+                    <span class="benchmark-card-title">TableBench</span>
+                    <span class="benchmark-card-note">Average over 10 LLMs</span>
+                  </div>
+                  <div class="score-grid">
+                    <div class="score-tile">
+                      <span class="score-label">EM</span>
+                      <span class="score-value">0.451</span>
+                      <span class="score-gain">+40.1% vs. 0.322</span>
+                    </div>
+                    <div class="score-tile">
+                      <span class="score-label">Fuzzy</span>
+                      <span class="score-value">0.619</span>
+                      <span class="score-gain">+21.9% vs. 0.508</span>
+                    </div>
+                    <div class="score-tile">
+                      <span class="score-label">F1</span>
+                      <span class="score-value">0.482</span>
+                      <span class="score-gain">+33.1% vs. 0.362</span>
+                    </div>
+                  </div>
+                  <p class="baseline-note">
+                    Best baseline per metric: SynTQA for EM and F1, MixSC for fuzzy matching.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="box result-panel has-text-centered">
+                <h3 class="title is-5">Ablation Overview</h3>
+                <figure class="image">
+                  <img src="./static/images/mata_figure2_ablation.png"
+                       alt="Ablation studies for MATA on Penguins in a Table and TableBench">
+                </figure>
+                <p class="is-size-7 has-text-grey table-caption">
+                  Figure 2. Ablation results for Confidence Checker, Judge Agent, Format Matcher, and Scheduler modules.
+                </p>
+              </div>
+            </div>
+          </div>
+          <p>
+            The Confidence Checker is the most important component in the ablation study. It reduces Judge Agent invocations by 95.8% on Penguins in a Table and 60.6% on TableBench while maintaining or improving final accuracy. The Scheduler further reduces LLM-agent calls by 14.6% and 7.6% on the two benchmarks, respectively.
+          </p>
+          <p>
+            For locally hosted open-source backbones, MATA reports an average end-to-end latency of 27.55 seconds per query, compared with 48.89 seconds for TabLaP and 44.48 seconds for MixSC. SynTQA is faster at 6.86 seconds, but its fixed low-call budget is less effective on the harder TableBench setting.
+          </p>
+
+          <h3 class="title is-4">Full Benchmark Tables</h3>
+          <p class="table-caption">
+            Table 2. Evaluation results on the <strong>Penguins in a Table</strong> benchmark. Bold indicates the best performance; underlined scores are the second best.
+          </p>
+          <div class="compact-table-wrapper">
+            <table class="table is-striped is-hoverable is-fullwidth has-text-centered compact-results">
+              <thead>
+                <tr>
+                  <th colspan="2">Model</th>
+                  <th colspan="3">TabLaP</th>
+                  <th colspan="3">SynTQA</th>
+                  <th colspan="3">MixSC</th>
+                  <th colspan="3">MATA</th>
+                </tr>
+                <tr>
+                  <th>Group</th>
+                  <th>Name</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th rowspan="5">Small LLM</th>
+                  <th>llama3.2-3b</th>
+                  <td>0.188</td><td>0.290</td><td>0.247</td>
+                  <td class="metric-second">0.597</td><td class="metric-second">0.654</td><td class="metric-second">0.602</td>
+                  <td>0.201</td><td>0.303</td><td>0.252</td>
+                  <td class="metric-best">0.736</td><td class="metric-best">0.766</td><td class="metric-best">0.736</td>
+                </tr>
+                <tr>
+                  <th>mistral-7b</th>
+                  <td>0.049</td><td>0.231</td><td>0.102</td>
+                  <td class="metric-second">0.639</td><td class="metric-second">0.680</td><td class="metric-second">0.645</td>
+                  <td>0.271</td><td>0.385</td><td>0.289</td>
+                  <td class="metric-best">0.861</td><td class="metric-best">0.880</td><td class="metric-best">0.861</td>
+                </tr>
+                <tr>
+                  <th>phi4-mini-3.8b</th>
+                  <td>0.333</td><td>0.483</td><td>0.362</td>
+                  <td class="metric-second">0.813</td><td class="metric-second">0.827</td><td class="metric-second">0.813</td>
+                  <td>0.500</td><td>0.593</td><td>0.528</td>
+                  <td class="metric-best">0.819</td><td class="metric-best">0.847</td><td class="metric-best">0.819</td>
+                </tr>
+                <tr>
+                  <th>qwen2.5-3b</th>
+                  <td>0.396</td><td>0.479</td><td>0.400</td>
+                  <td class="metric-second">0.694</td><td class="metric-second">0.737</td><td class="metric-second">0.694</td>
+                  <td>0.438</td><td>0.517</td><td>0.442</td>
+                  <td class="metric-best">0.868</td><td class="metric-best">0.883</td><td class="metric-best">0.868</td>
+                </tr>
+                <tr>
+                  <th>qwen2.5-7b</th>
+                  <td>0.444</td><td>0.522</td><td>0.444</td>
+                  <td class="metric-second">0.813</td><td class="metric-second">0.866</td><td class="metric-second">0.815</td>
+                  <td>0.597</td><td>0.657</td><td>0.597</td>
+                  <td class="metric-best">0.951</td><td class="metric-best">0.955</td><td class="metric-best">0.951</td>
+                </tr>
+                <tr>
+                  <th rowspan="5">Large LLM</th>
+                  <th>mistral-small-24b</th>
+                  <td>0.764</td><td>0.784</td><td>0.773</td>
+                  <td class="metric-best">0.896</td><td class="metric-best">0.918</td><td class="metric-best">0.896</td>
+                  <td>0.806</td><td>0.813</td><td>0.810</td>
+                  <td class="metric-best">0.896</td><td class="metric-second">0.896</td><td class="metric-best">0.896</td>
+                </tr>
+                <tr>
+                  <th>cogito-32b</th>
+                  <td class="metric-best">0.931</td><td class="metric-best">0.934</td><td class="metric-best">0.931</td>
+                  <td>0.868</td><td>0.886</td><td>0.868</td>
+                  <td class="metric-second">0.903</td><td class="metric-second">0.908</td><td class="metric-second">0.903</td>
+                  <td class="metric-second">0.903</td><td>0.903</td><td class="metric-second">0.903</td>
+                </tr>
+                <tr>
+                  <th>qwen2.5-32b</th>
+                  <td>0.611</td><td>0.687</td><td>0.656</td>
+                  <td class="metric-second">0.861</td><td class="metric-second">0.892</td><td class="metric-second">0.861</td>
+                  <td>0.785</td><td>0.802</td><td>0.789</td>
+                  <td class="metric-best">0.917</td><td class="metric-best">0.917</td><td class="metric-best">0.917</td>
+                </tr>
+                <tr>
+                  <th>GPT-4o</th>
+                  <td>0.653</td><td>0.655</td><td>0.653</td>
+                  <td class="metric-best">0.951</td><td class="metric-best">0.961</td><td class="metric-best">0.951</td>
+                  <td>0.833</td><td>0.835</td><td>0.833</td>
+                  <td class="metric-second">0.903</td><td class="metric-second">0.903</td><td class="metric-second">0.903</td>
+                </tr>
+                <tr>
+                  <th>Claude-3.7-Sonnet</th>
+                  <td>0.868</td><td>0.868</td><td>0.868</td>
+                  <td class="metric-best">0.965</td><td class="metric-best">0.970</td><td class="metric-best">0.965</td>
+                  <td>0.924</td><td>0.924</td><td>0.924</td>
+                  <td class="metric-second">0.951</td><td class="metric-second">0.951</td><td class="metric-second">0.951</td>
+                </tr>
+                <tr>
+                  <th colspan="2">Average</th>
+                  <td>0.524</td><td>0.593</td><td>0.544</td>
+                  <td class="metric-second">0.810</td><td class="metric-second">0.839</td><td class="metric-second">0.811</td>
+                  <td>0.626</td><td>0.674</td><td>0.637</td>
+                  <td class="metric-best">0.881</td><td class="metric-best">0.890</td><td class="metric-best">0.881</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="table-caption">
+            Table 3. Evaluation results on the <strong>TableBench</strong> benchmark. Bold and underline follow Table 2.
+          </p>
+          <div class="compact-table-wrapper">
+            <table class="table is-striped is-hoverable is-fullwidth has-text-centered compact-results">
+              <thead>
+                <tr>
+                  <th colspan="2">Model</th>
+                  <th colspan="3">TabLaP</th>
+                  <th colspan="3">SynTQA</th>
+                  <th colspan="3">MixSC</th>
+                  <th colspan="3">MATA</th>
+                </tr>
+                <tr>
+                  <th>Group</th>
+                  <th>Name</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                  <th>EM</th><th>Fuzzy</th><th>F1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th rowspan="5">Small LLM</th>
+                  <th>llama3.2-3b</th>
+                  <td>0.067</td><td>0.357</td><td>0.130</td>
+                  <td class="metric-second">0.089</td><td>0.231</td><td>0.120</td>
+                  <td>0.081</td><td class="metric-second">0.372</td><td class="metric-second">0.144</td>
+                  <td class="metric-best">0.354</td><td class="metric-best">0.563</td><td class="metric-best">0.381</td>
+                </tr>
+                <tr>
+                  <th>mistral-7b</th>
+                  <td>0.036</td><td>0.331</td><td>0.119</td>
+                  <td class="metric-second">0.227</td><td class="metric-second">0.367</td><td class="metric-second">0.270</td>
+                  <td>0.082</td><td>0.355</td><td>0.151</td>
+                  <td class="metric-best">0.294</td><td class="metric-best">0.473</td><td class="metric-best">0.321</td>
+                </tr>
+                <tr>
+                  <th>phi4-mini-3.8b</th>
+                  <td>0.056</td><td>0.334</td><td>0.126</td>
+                  <td class="metric-second">0.202</td><td>0.366</td><td class="metric-second">0.253</td>
+                  <td>0.144</td><td class="metric-second">0.411</td><td>0.203</td>
+                  <td class="metric-best">0.273</td><td class="metric-best">0.457</td><td class="metric-best">0.295</td>
+                </tr>
+                <tr>
+                  <th>qwen2.5-3b</th>
+                  <td>0.163</td><td class="metric-second">0.417</td><td>0.195</td>
+                  <td class="metric-second">0.208</td><td>0.364</td><td class="metric-second">0.245</td>
+                  <td>0.163</td><td class="metric-second">0.417</td><td>0.197</td>
+                  <td class="metric-best">0.291</td><td class="metric-best">0.471</td><td class="metric-best">0.317</td>
+                </tr>
+                <tr>
+                  <th>qwen2.5-7b</th>
+                  <td>0.079</td><td>0.255</td><td>0.094</td>
+                  <td class="metric-second">0.302</td><td class="metric-second">0.450</td><td class="metric-second">0.336</td>
+                  <td>0.169</td><td>0.368</td><td>0.190</td>
+                  <td class="metric-best">0.354</td><td class="metric-best">0.557</td><td class="metric-best">0.393</td>
+                </tr>
+                <tr>
+                  <th rowspan="5">Large LLM</th>
+                  <th>mistral-small-24b</th>
+                  <td>0.322</td><td>0.478</td><td>0.352</td>
+                  <td class="metric-second">0.391</td><td class="metric-second">0.543</td><td class="metric-second">0.431</td>
+                  <td>0.378</td><td>0.530</td><td>0.410</td>
+                  <td class="metric-best">0.573</td><td class="metric-best">0.724</td><td class="metric-best">0.606</td>
+                </tr>
+                <tr>
+                  <th>cogito-32b</th>
+                  <td>0.440</td><td class="metric-second">0.614</td><td class="metric-second">0.483</td>
+                  <td class="metric-second">0.443</td><td>0.591</td><td>0.481</td>
+                  <td>0.430</td><td class="metric-second">0.614</td><td>0.476</td>
+                  <td class="metric-best">0.577</td><td class="metric-best">0.723</td><td class="metric-best">0.609</td>
+                </tr>
+                <tr>
+                  <th>qwen2.5-32b</th>
+                  <td>0.268</td><td>0.533</td><td>0.317</td>
+                  <td class="metric-second">0.398</td><td class="metric-second">0.553</td><td class="metric-second">0.436</td>
+                  <td>0.297</td><td>0.551</td><td>0.341</td>
+                  <td class="metric-best">0.577</td><td class="metric-best">0.721</td><td class="metric-best">0.607</td>
+                </tr>
+                <tr>
+                  <th>GPT-4o</th>
+                  <td class="metric-second">0.556</td><td class="metric-second">0.722</td><td class="metric-second">0.595</td>
+                  <td>0.476</td><td>0.607</td><td>0.503</td>
+                  <td>0.494</td><td>0.692</td><td>0.540</td>
+                  <td class="metric-best">0.595</td><td class="metric-best">0.740</td><td class="metric-best">0.629</td>
+                </tr>
+                <tr>
+                  <th>Claude-3.7-Sonnet</th>
+                  <td>0.612</td><td>0.763</td><td>0.655</td>
+                  <td>0.489</td><td>0.633</td><td>0.540</td>
+                  <td class="metric-second">0.619</td><td class="metric-best">0.767</td><td class="metric-second">0.659</td>
+                  <td class="metric-best">0.620</td><td class="metric-second">0.764</td><td class="metric-best">0.664</td>
+                </tr>
+                <tr>
+                  <th colspan="2">Average</th>
+                  <td>0.260</td><td>0.480</td><td>0.307</td>
+                  <td class="metric-second">0.322</td><td>0.471</td><td class="metric-second">0.362</td>
+                  <td>0.286</td><td class="metric-second">0.508</td><td>0.331</td>
+                  <td class="metric-best">0.451</td><td class="metric-best">0.619</td><td class="metric-best">0.482</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{hyeon2026mata,
+  title         = {MATA: Multi-Agent Framework for Reliable and Flexible Table Question Answering},
+  author        = {Hyeon, Sieun and Oh, Jusang and Cho, Sunghwan Steve and Do, Jaeyoung},
+  year          = {2026},
+  eprint        = {2602.09642},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2602.09642},
+  note          = {Accepted to ACL 2026 Findings}
+}</code></pre>
+  </div>
+</section>
+
+<!-- Footer (Don't change) -->
+<footer class="footer" style="padding-bottom: 40px;">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <a href="https://en.snu.ac.kr">
+            <img src="./static/images/snu_logo.png" alt="Logo" style="max-height: 48px; margin: 6px 10px;">
+          </a>
+          <a href="https://aidas.snu.ac.kr">
+            <img src="./static/images/aidaslab_logo.png" alt="Logo" style="max-height: 36px; margin: 10px 30px;">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
