@@ -72,7 +72,7 @@ table_raw = pd.DataFrame(
     "Day": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     "Boxes of cookies": [25, 27, 23, 26, 23]
     }
-) # The input Table must have the format of Pandas DataFrame for MIAS.
+) # The input Table must have the format of Pandas DataFrame for MATA.
 
 question = 'A Girl Scout troop recorded how many boxes of cookies they sold each day for a week. According to the table, what was the rate of change between Wednesday and Thursday?'
 
