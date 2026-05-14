@@ -133,7 +133,7 @@ results_all = {
     'text2sql' : text2sql_results,
     'CoT': CoT_results
 }
-# Grond Truth : -4
+# Ground Truth : -4
 
 with open('LLM_inference_results.json', 'w', encoding='utf-8') as json_file:
     json.dump(results_all, json_file, ensure_ascii=False, indent=4)
