@@ -59,15 +59,13 @@ ollama pull qwen2.5:0.5b-instruct-q8_0
 conda env create -f ./langchain.yml
 ```
 
-**9. Download the scheduler checkpoint from the following [link](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link) and place it inside the `scheduler` folder.**
 
-
-**10. Run the following code.**
+**9. Run the following code.**
 ```bash
 python MATA_penguins.py --config config.yaml
 ```
 
-**11. If you do not want to use the scheduler or want to increase the number of self-refinement iterations, you can either modify the `config.yaml` file or run the code as shown below.**
+**10. If you do not want to use the scheduler or want to increase the number of self-refinement iterations, you can either modify the `config.yaml` file or run the code as shown below.**
 ```bash
 python MATA_penguins.py --config config.yaml --Use_Scheduler False --N 5
 ```
