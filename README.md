@@ -1,5 +1,12 @@
 <h1 align="center">MATA: Multi-Agent Framework for Reliable and Flexible Table Question Answering</h1>
 <h3 align="center">ACL 2026 findings</h3>
+<p align="center">
+  <a href="https://arxiv.org/abs/2602.09642"><img src="https://img.shields.io/badge/arXiv-2602.09642-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://aidaslab.github.io/MATA/"><img src="https://img.shields.io/badge/Project-Page-blue.svg" alt="Project Page"></a>
+  <a href="https://drive.google.com/drive/folders/1LmwlqBv8eiS1AhqBWCqS_r4TJX0kwJb_?usp=sharing"><img src="https://img.shields.io/badge/Training_Data-Google_Drive-34A853.svg" alt="Training Data"></a>
+  <a href="https://tablebench.github.io/"><img src="https://img.shields.io/badge/Benchmark-TableBench-6f42c1.svg" alt="TableBench"></a>
+  <a href="https://github.com/google/BIG-bench/blob/main/bigbench/benchmark_tasks/penguins_in_a_table/task.json"><img src="https://img.shields.io/badge/Benchmark-Penguins_in_a_Table-0a7f3f.svg" alt="Penguins in a Table"></a>
+</p>
 
 ## Abstract
 Recent advances in Large Language Models (LLMs) have significantly improved table understanding tasks such as Table Question Answering (TableQA), yet challenges remain in ensuring reliability, scalability, and efficiency, especially in resource-constrained or privacy-sensitive environments. In this paper, we introduce MATA, a multi-agent TableQA framework that leverages multiple complementary reasoning paths and a set of tools built with small language models. MATA generates candidate answers through diverse reasoning styles for a given table and question, then refines or selects the optimal answer with the help of these tools. Furthermore, it incorporates an algorithm designed to minimize expensive LLM agent calls, enhancing overall efficiency. MATA maintains strong performance with small, open-source models and adapts easily across various LLM types. Extensive experiments on two benchmarks of varying difficulty with ten different LLMs demonstrate that MATA achieves state-of-the-art accuracy and highly efficient reasoning while avoiding excessive LLM inference. Our results highlight that careful orchestration of multiple reasoning pathways yields scalable and reliable TableQA.
