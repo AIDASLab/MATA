@@ -42,8 +42,3 @@ class Penguins_in_a_table:
         print("\nanswer_extract:", self.dataset[f'{self.index}']['answer_extract'])
 
 
-#메서드 사용 예시
-#fetaqa = FeTaQA(df, index)
-#table = fetaqa.get_table_array()
-#query = fetaqa.get_question()
-#answers = fetaqa.get_answer()
