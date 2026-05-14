@@ -37,6 +37,11 @@ ollama serve
 ```bash
 ollama pull qwen2.5:32b-instruct
 ```
+The format matcher in `utils/FM_inference.py` uses `qwen2.5:0.5b-instruct-q8_0`, so please also pull it:
+
+```bash
+ollama pull qwen2.5:0.5b-instruct-q8_0
+```
 
 **6. Move the `MATA_penguins.py`, `penguins_in_a_table_dataframe_answer_extracted.json` and the `penguin_loader.py` to the [main](https://github.com/AIDASLab/MATA/tree/main) folder.**
 
