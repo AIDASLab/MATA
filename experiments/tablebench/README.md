@@ -37,6 +37,11 @@ ollama serve
 ```bash
 ollama pull qwen2.5:32b-instruct
 ```
+The format matcher in `utils/FM_inference.py` uses `qwen2.5:0.5b-instruct-q8_0`, so please also pull it:
+
+```bash
+ollama pull qwen2.5:0.5b-instruct-q8_0
+```
 
 **6. Move the `MATA_tablebench.py` file and the `Tablebench_loader.py` file to the [main](https://github.com/AIDASLab/MATA/tree/main) folder.**
 
