@@ -2,7 +2,7 @@
 
 ## How to Use evaluate.py
 
-```bash
+```python
 from evaluate import *
 
 pred = 'John , Andy'
