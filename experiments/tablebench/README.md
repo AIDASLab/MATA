@@ -40,15 +40,13 @@ ollama pull qwen2.5:32b-instruct
 
 **6. Move the `MATA_tablebench.py` file and the `Tablebench_loader.py` file to the [main](https://github.com/AIDASLab/MATA/tree/main) folder.**
 
-**7. If you want to change the model, you need to modify the code in the following four locations:**
+**7. If you want to change the Ollama model, update the following locations consistently:**
 
-  * Line 130, 223, and 269 in `MATA_tablebench.py`
+- `MATA_tablebench.py`: every `ChatOllama(model=...)` value.
+- `utils/adjust_context.py`: the fallback model used inside `llm_adjusted_context`.
+- `utils/adjust_context.py`: the Hugging Face tokenizer name in `measure_and_adjust_context(model_name=...)`.
+- `utils/FM_inference.py`: the small format-matcher model used when the final answer is longer than 100 characters.
 
-  * Line 25 in `adjust_context.py` inside the `utils` folder
-
-  * The `model_name` variable on line 4 in `adjust_context.py` inside the `utils` folder: this loads the tokenizer for your chosen model from [Hugging Face](https://huggingface.co/)
-
-  * The `max_context` variable on line 4 in `adjust_context.py` inside the `utils` folder: this sets the maximum context length supported by your chosen model
 
 
 **8. Our code was developed in an [Anaconda](https://www.anaconda.com/) environment. Please run the code below to create a new virtual environment. This will make it easy to install the libraries required for MATA.**
