@@ -4,8 +4,6 @@
   <a href="https://arxiv.org/abs/2602.09642"><img src="https://img.shields.io/badge/arXiv-2602.09642-b31b1b.svg" alt="arXiv"></a>
   <a href="https://aidaslab.github.io/MATA/"><img src="https://img.shields.io/badge/Project-Page-blue.svg" alt="Project Page"></a>
   <a href="https://drive.google.com/drive/folders/1LmwlqBv8eiS1AhqBWCqS_r4TJX0kwJb_?usp=sharing"><img src="https://img.shields.io/badge/Training_Data-Google_Drive-34A853.svg" alt="Training Data"></a>
-  <a href="https://tablebench.github.io/"><img src="https://img.shields.io/badge/Benchmark-TableBench-6f42c1.svg" alt="TableBench"></a>
-  <a href="https://github.com/google/BIG-bench/blob/main/bigbench/benchmark_tasks/penguins_in_a_table/task.json"><img src="https://img.shields.io/badge/Benchmark-Penguins_in_a_Table-0a7f3f.svg" alt="Penguins in a Table"></a>
 </p>
 
 ## Abstract
