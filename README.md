@@ -18,7 +18,7 @@ Here, you can find the experimental code, and fine-tuned model checkpoints for M
 
 ## Resources
 
-- **MATA scheduler checkpoint**: Download from [Google Drive](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link) and place the file as [`scheduler/mobilebert_multilabel_45.pt`](https://github.com/AIDASLab/MATA/tree/main/scheduler).
+- **MATA scheduler checkpoint**: Download from [Google Drive](https://drive.google.com/file/d/1Yxz5xZMOBeQyPc0lK0ZDCQv1VDtUVh-z/view?usp=drive_link) and place it at [`scheduler/mobilebert_multilabel_45.pt`](https://github.com/AIDASLab/MATA/tree/main/scheduler).
 - **MATA confidence checker checkpoint**: Available at [Hugging Face](https://huggingface.co/snu-aidas/MATA_confidence_checker). The code loads this checkpoint automatically through `transformers`.
 - **Training datasets for the scheduler and confidence checker**: Available at [Google Drive](https://drive.google.com/drive/folders/1LmwlqBv8eiS1AhqBWCqS_r4TJX0kwJb_?usp=sharing).
 
